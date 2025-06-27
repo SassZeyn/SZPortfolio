@@ -3,105 +3,127 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Evolve – Alex's Creative Portfolio</title>
+  <title>EVOLVE – Alex's Interactive Portfolio</title>
   <style>
-    body {
+    html, body {
       margin: 0;
-      font-family: 'Helvetica Neue', sans-serif;
-      background: black;
-      color: white;
-      overflow-x: hidden;
-    }
-    .hero {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(180deg, #000000 0%, #2b0054 100%);
-      text-align: center;
-    }
-    .hero h1 {
-      font-size: 6rem;
-      font-weight: bold;
-      color: #9b5de5;
-      margin: 0;
-      text-transform: uppercase;
-      letter-spacing: 5px;
-    }
-    .hero p {
-      font-size: 1.2rem;
-      max-width: 600px;
-      color: #eee;
-      margin-top: 1rem;
-    }
-    .profile {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 4rem 2rem;
-      background: #111;
-    }
-    .profile img {
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 1.5rem;
-      border: 4px solid #9b5de5;
-    }
-    .career {
-      max-width: 900px;
-      text-align: left;
-    }
-    .career h2 {
-      color: #9b5de5;
-      margin-bottom: 1rem;
-    }
-    .career ul {
-      list-style: none;
       padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: black;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
     }
-    .career li {
-      margin-bottom: 1rem;
-      line-height: 1.6;
+    #intro {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 10;
     }
-    .highlight {
+    #intro h1 {
+      font-size: 5rem;
       color: #9b5de5;
-      font-weight: bold;
+      margin: 0;
+      letter-spacing: 4px;
     }
-    footer {
-      background: #000;
-      color: #999;
+    #intro p {
+      margin-top: 10px;
+      color: #ccc;
+      max-width: 600px;
+    }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+    #info-box {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.8);
+      padding: 1rem 2rem;
+      border: 2px solid #9b5de5;
+      border-radius: 8px;
+      font-size: 1rem;
       text-align: center;
-      padding: 2rem 1rem;
-      font-size: 0.9rem;
+      color: #fff;
+      max-width: 80%;
     }
   </style>
 </head>
 <body>
-  <section class="hero">
+  <div id="intro">
     <h1>EVOLVE</h1>
-    <p>Coder + Educator. Designing scalable systems & future minds.</p>
-  </section>
+    <p>Navigate through my experience as a coder and educator by exploring the interactive 3D world below.</p>
+  </div>
+  <canvas id="bg"></canvas>
+  <div id="info-box">Use your mouse or touch to look around. Click on the floating spheres to explore each role.</div>
 
-  <section class="profile">
-    <img src="YOUR_IMAGE_URL_HERE" alt="Alex's Photo">
-    <div class="career">
-      <h2>My Path</h2>
-      <ul>
-        <li><span class="highlight">End-to-end IT Project Manager</span> with Agile/Scrum mastery, risk mitigation, and stakeholder collaboration.</li>
-        <li><span class="highlight">Backend Developer</span> using Django, JWT, REST APIs, and secure architecture with database workflows.</li>
-        <li><span class="highlight">RPA & AI Assistant Integration</span> for process automation and analysis.</li>
-        <li><span class="highlight">Data Mapping</span> and integration with PMS platforms (Opera Cloud, V5, Amadeus, Apaleo).</li>
-        <li><span class="highlight">IBDP Educator</span>: TOK, English A & B, Extended Essays, flipped classrooms, and academic policy.</li>
-        <li><span class="highlight">Toolchain:</span> GitHub, GitLab, JIRA, Notion, Linear, Miro, Moodle, ManageBac.</li>
-      </ul>
-    </div>
-  </section>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    let scene = new THREE.Scene();
+    let camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+    let renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg'), antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
 
-  <footer>
-    &copy; 2025 Alex Kirkosyan. Crafted with creativity & discipline. Hosted on GitHub Pages.
-  </footer>
+    const geometry = new THREE.SphereGeometry(1, 32, 32);
+    const materials = [
+      new THREE.MeshBasicMaterial({ color: 0x9b5de5 }),
+      new THREE.MeshBasicMaterial({ color: 0xff6f61 }),
+      new THREE.MeshBasicMaterial({ color: 0x00f0ff }),
+      new THREE.MeshBasicMaterial({ color: 0x32cd32 }),
+    ];
+
+    const spheres = [];
+    const labels = [
+      "IT Project Manager",
+      "Backend Developer",
+      "RPA & AI Integration",
+      "IBDP Educator"
+    ];
+
+    labels.forEach((label, i) => {
+      const sphere = new THREE.Mesh(geometry, materials[i % materials.length]);
+      sphere.position.set(Math.cos(i * 1.5) * 5, Math.sin(i * 1.5) * 3, -5 - i);
+      sphere.name = label;
+      scene.add(sphere);
+      spheres.push(sphere);
+    });
+
+    camera.position.z = 5;
+
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+
+    function onMouseClick(event) {
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      raycaster.setFromCamera(mouse, camera);
+      const intersects = raycaster.intersectObjects(spheres);
+
+      if (intersects.length > 0) {
+        alert('Explore: ' + intersects[0].object.name);
+      }
+    }
+    window.addEventListener('click', onMouseClick);
+
+    function animate() {
+      requestAnimationFrame(animate);
+      spheres.forEach(sphere => {
+        sphere.rotation.y += 0.01;
+        sphere.rotation.x += 0.005;
+      });
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
 </body>
 </html>
