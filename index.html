@@ -13,13 +13,14 @@
     html, body {
       height: 100%;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
     }
     .split {
       height: 100%;
       width: 50%;
       position: fixed;
       top: 0;
-      overflow-x: hidden;
+      overflow: hidden;
       transition: width 0.5s ease;
       display: flex;
       flex-direction: column;
@@ -31,11 +32,13 @@
       left: 0;
       background-color: #ffffff;
       color: #000;
+      z-index: 1;
     }
     .right {
       right: 0;
       background-color: #000000;
       color: #fff;
+      z-index: 1;
     }
     .left:hover {
       width: 75%;
@@ -59,31 +62,62 @@
       font-size: 1.1rem;
       line-height: 1.5;
     }
-    .signature {
-      position: absolute;
-      bottom: 20px;
-      font-size: 0.9rem;
-      color: #666;
-    }
     a {
       text-decoration: none;
       color: #9b5de5;
       margin-top: 1rem;
       font-weight: bold;
     }
+    .signature {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.9rem;
+      color: #666;
+      width: 100%;
+      text-align: center;
+      z-index: 2;
+    }
+    .center-image {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      pointer-events: none;
+      transition: filter 0.5s ease, transform 0.5s ease;
+    }
+    .center-image img {
+      width: 280px;
+      height: 280px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid #9b5de5;
+    }
+    .left:hover ~ .center-image img {
+      filter: hue-rotate(-40deg) contrast(1.1);
+      transform: translate(-50%, -50%) scale(1.05);
+    }
+    .right:hover ~ .center-image img {
+      filter: hue-rotate(120deg) contrast(1.1);
+      transform: translate(-50%, -50%) scale(1.05);
+    }
   </style>
 </head>
 <body>
   <div class="split left">
-    <h1>Designer</h1>
-    <p>I approach design with clarity, simplicity, and emotion. My work blends storytelling with functional visuals.</p>
-    <a href="#">View Design Work</a>
+    <h1>Educator</h1>
+    <p>Guiding critical thinking, communication, and global understanding through the IB framework and modern pedagogy.</p>
+    <a href="#">Explore Teaching</a>
   </div>
 
   <div class="split right">
-    <h1>Developer</h1>
-    <p>I build secure, scalable systems with Django, REST APIs, and database architecture, balancing performance and clarity.</p>
-    <a href="#">View Code Projects</a>
+    <h1>Technologist</h1>
+    <p>Engineering scalable systems with Python, Django, APIs, and RPA—bridging education and technology through logic and automation.</p>
+    <a href="#">Explore Projects</a>
+  </div>
+
+  <div class="center-image">
+    <img src="YOUR_IMAGE_URL_HERE" alt="Alex Photo">
   </div>
 
   <div class="signature">&copy; 2025 Alex Kirkosyan | evolve</div>
