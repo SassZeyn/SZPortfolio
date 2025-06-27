@@ -60,6 +60,14 @@
       font-size: 2rem;
       cursor: pointer;
       transition: transform 0.4s ease, background 0.4s ease;
+      pointer-events: auto;
+      overflow: visible;
+    }
+    .orbit-icon img {
+      width: 80%;
+      height: 80%;
+      object-fit: cover;
+      border-radius: 50%;
     }
     .orbit-icon:hover {
       background: #fff;
@@ -69,7 +77,9 @@
     }
     .orbit-icon .tooltip {
       position: absolute;
-      bottom: -60px;
+      top: -55px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-10px);
       background: #fff;
       color: #000;
       padding: 0.6rem 1rem;
@@ -77,14 +87,13 @@
       border-radius: 8px;
       opacity: 0;
       pointer-events: none;
-      transform: translateY(-10px);
       transition: all 0.4s ease;
+      white-space: nowrap;
       text-align: center;
-      width: 180px;
     }
     .orbit-icon:hover .tooltip {
       opacity: 1;
-      transform: translateY(-20px);
+      transform: translateX(-50%) translateY(-20px);
     }
     @keyframes rotate1 {
       from { transform: rotate(0deg) translateX(150px) rotate(0deg); }
@@ -122,6 +131,9 @@
       animation: rotate2 18s linear infinite reverse;
       transform-origin: center;
     }
+    .orbit-icon.paused {
+      animation-play-state: paused !important;
+    }
     footer {
       position: absolute;
       bottom: 20px;
@@ -147,12 +159,30 @@
         🤖<div class="tooltip">AI + RPA Automation</div>
       </div>
       <div class="orbit-icon">
-        📊<div class="tooltip">Agile Project Manager</div>
+        <img src="fun.png" alt="Alex Art">
+        <div class="tooltip">That's me – Creative Educator & Tech Enthusiast</div>
       </div>
     </div>
   </div>
   <footer>
     &copy; 2025 Alex Kirkosyan – Designed with vision. Built with code.
   </footer>
+  <script>
+    document.querySelectorAll('.orbit-icon').forEach(icon => {
+      const tooltip = icon.querySelector('.tooltip');
+
+      icon.addEventListener('mouseenter', () => {
+        tooltip.style.opacity = '1';
+        tooltip.style.transform = 'translateX(-50%) translateY(-20px)';
+        icon.classList.add('paused');
+      });
+
+      icon.addEventListener('mouseleave', () => {
+        tooltip.style.opacity = '0';
+        tooltip.style.transform = 'translateX(-50%) translateY(-10px)';
+        icon.classList.remove('paused');
+      });
+    });
+  </script>
 </body>
 </html>
