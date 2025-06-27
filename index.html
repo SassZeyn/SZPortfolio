@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EVOLVE – Alex's Portfolio</title>
+  <title>EVOLVE – Alex's Interactive Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -12,93 +13,143 @@
     }
     html, body {
       height: 100%;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #111;
-      overflow: hidden;
+      background: #0d0d0d;
+      color: #f4f4f4;
+      font-family: 'Outfit', sans-serif;
+      overflow-x: hidden;
     }
-    .container {
-      width: 100%;
-      height: 100%;
+    .hero {
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      background: linear-gradient(120deg, #000, #1a1a1a);
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      padding: 2rem;
+      background: radial-gradient(ellipse at center, #1a1a1a 0%, #000 100%);
       position: relative;
     }
-    .profile {
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 6px solid #9b5de5;
-      box-shadow: 0 0 20px rgba(155, 93, 229, 0.6);
-      transition: transform 0.5s ease, box-shadow 0.5s ease;
+    .hero h1 {
+      font-size: 4rem;
+      color: #9b5de5;
+      margin-bottom: 1rem;
+      letter-spacing: 2px;
     }
-    .profile img {
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      line-height: 1.6;
+      color: #ccc;
+    }
+    .orbital {
+      position: absolute;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      top: 0;
+      left: 0;
+      pointer-events: none;
     }
-    .info-box {
+    .dot {
       position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 300px;
-      padding: 1rem;
-      background-color: rgba(0, 0, 0, 0.8);
-      color: #fff;
-      border-radius: 10px;
-      transition: opacity 0.5s ease, transform 0.5s ease;
-      opacity: 0;
+      border-radius: 50%;
+      animation: orbit 10s linear infinite;
     }
-    .info-left {
-      left: 5%;
-      text-align: left;
+    .dot:nth-child(1) {
+      width: 16px;
+      height: 16px;
+      background: #9b5de5;
+      top: 20%;
+      left: 50%;
+      animation-delay: 0s;
     }
-    .info-right {
-      right: 5%;
-      text-align: right;
+    .dot:nth-child(2) {
+      width: 12px;
+      height: 12px;
+      background: #00c2ff;
+      top: 70%;
+      left: 30%;
+      animation-delay: 2s;
     }
-    .container:hover .info-box {
-      opacity: 0.3;
+    .dot:nth-child(3) {
+      width: 14px;
+      height: 14px;
+      background: #ff6b6b;
+      top: 40%;
+      left: 80%;
+      animation-delay: 4s;
     }
-    .container:hover .info-left:hover,
-    .container:hover .info-right:hover {
-      opacity: 1;
-      transform: translateY(-50%) scale(1.05);
+    @keyframes orbit {
+      0% { transform: translate(0, 0) rotate(0deg) translateX(100px) rotate(0deg); }
+      100% { transform: translate(0, 0) rotate(360deg) translateX(100px) rotate(-360deg); }
     }
-    .info-box h2 {
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      padding: 4rem 2rem;
+      background: #121212;
+    }
+    .card {
+      background: #1e1e1e;
+      border: 1px solid #333;
+      border-radius: 16px;
+      padding: 2rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 20px rgba(155, 93, 229, 0.4);
+    }
+    .card h2 {
       color: #9b5de5;
       margin-bottom: 0.5rem;
     }
-    .container:hover .profile {
-      transform: scale(1.05);
-      box-shadow: 0 0 40px rgba(155, 93, 229, 0.8);
+    .card p {
+      color: #aaa;
+      font-size: 0.95rem;
+      line-height: 1.5;
     }
-    .signature {
-      position: absolute;
-      bottom: 20px;
-      width: 100%;
+    footer {
       text-align: center;
-      color: #999;
+      padding: 2rem;
+      color: #555;
       font-size: 0.9rem;
+      background: #0d0d0d;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="info-box info-left">
-      <h2>Educator</h2>
-      <p>Empowering minds through critical thinking, TOK, global perspectives, and IBDP excellence.</p>
+  <div class="hero">
+    <h1>EVOLVE</h1>
+    <p>A creative portfolio that fuses education, backend development, AI, and design — all in one interactive space.</p>
+    <div class="orbital">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
     </div>
-    <div class="profile">
-      <img src="assets/alex.jpg" alt="Alex Profile">
-    </div>
-    <div class="info-box info-right">
-      <h2>Technologist</h2>
-      <p>Building scalable systems with Python, Django, and AI automation for impactful digital solutions.</p>
-    </div>
-    <div class="signature">&copy; 2025 Alex Kirkosyan | evolve</div>
   </div>
+
+  <section class="card-grid">
+    <div class="card">
+      <h2>🎓 Educator</h2>
+      <p>IBDP teacher guiding critical thinking, Theory of Knowledge, English A/B, and Extended Essays. Specialized in inquiry-based learning and global perspective development.</p>
+    </div>
+    <div class="card">
+      <h2>💻 Backend Developer</h2>
+      <p>Experienced in Python, Django, RESTful APIs, SQL, and database architecture. Built secure, scalable systems and integrations using modern frameworks.</p>
+    </div>
+    <div class="card">
+      <h2>🤖 Automation & AI</h2>
+      <p>Integrated RPA bots and AI assistants to optimize workflows, automate processes, and deliver real-time insights using custom APIs and hybrid SDLC cycles.</p>
+    </div>
+    <div class="card">
+      <h2>🧠 Strategic Project Manager</h2>
+      <p>Led full-cycle IT projects, collaborating across teams with Agile/Scrum, using tools like JIRA, Notion, and Linear to deliver measurable results.</p>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Alex Kirkosyan – Crafted with code, driven by creativity.
+  </footer>
 </body>
 </html>
