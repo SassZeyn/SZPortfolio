@@ -13,8 +13,8 @@
     }
     html, body {
       height: 100%;
-      background: #0d0d0d;
-      color: #f4f4f4;
+      background: #000;
+      color: #fff;
       font-family: 'Outfit', sans-serif;
       overflow-x: hidden;
     }
@@ -26,12 +26,12 @@
       height: 100vh;
       text-align: center;
       padding: 2rem;
-      background: radial-gradient(ellipse at center, #1a1a1a 0%, #000 100%);
+      background: #000;
       position: relative;
     }
     .hero h1 {
       font-size: 4rem;
-      color: #9b5de5;
+      color: #fff;
       margin-bottom: 1rem;
       letter-spacing: 2px;
     }
@@ -39,7 +39,7 @@
       font-size: 1.2rem;
       max-width: 600px;
       line-height: 1.6;
-      color: #ccc;
+      color: #bbb;
     }
     .orbital {
       position: absolute;
@@ -48,6 +48,7 @@
       top: 0;
       left: 0;
       pointer-events: none;
+      z-index: 1;
     }
     .dot {
       position: absolute;
@@ -57,7 +58,7 @@
     .dot:nth-child(1) {
       width: 16px;
       height: 16px;
-      background: #9b5de5;
+      background: #fff;
       top: 20%;
       left: 50%;
       animation-delay: 0s;
@@ -65,7 +66,7 @@
     .dot:nth-child(2) {
       width: 12px;
       height: 12px;
-      background: #00c2ff;
+      background: #ccc;
       top: 70%;
       left: 30%;
       animation-delay: 2s;
@@ -73,7 +74,7 @@
     .dot:nth-child(3) {
       width: 14px;
       height: 14px;
-      background: #ff6b6b;
+      background: #999;
       top: 40%;
       left: 80%;
       animation-delay: 4s;
@@ -82,46 +83,71 @@
       0% { transform: translate(0, 0) rotate(0deg) translateX(100px) rotate(0deg); }
       100% { transform: translate(0, 0) rotate(360deg) translateX(100px) rotate(-360deg); }
     }
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
+    .icon-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 4rem;
       padding: 4rem 2rem;
-      background: #121212;
+      background: #111;
     }
-    .card {
-      background: #1e1e1e;
-      border: 1px solid #333;
-      border-radius: 16px;
-      padding: 2rem;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    .icon-card {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: #000;
+      border: 2px solid #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      animation: float 5s ease-in-out infinite;
+      transition: all 0.4s ease;
+      cursor: pointer;
     }
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 0 20px rgba(155, 93, 229, 0.4);
+    .icon-card:hover {
+      transform: scale(1.1);
+      background: #fff;
+      color: #000;
     }
-    .card h2 {
-      color: #9b5de5;
-      margin-bottom: 0.5rem;
+    .icon-card:hover .tooltip {
+      opacity: 1;
+      transform: translateY(-140%);
     }
-    .card p {
-      color: #aaa;
-      font-size: 0.95rem;
-      line-height: 1.5;
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+    .tooltip {
+      position: absolute;
+      bottom: -20px;
+      background: #fff;
+      color: #000;
+      padding: 0.8rem 1rem;
+      font-size: 0.85rem;
+      border-radius: 8px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-100%);
+      transition: all 0.4s ease;
+      text-align: center;
+      width: 180px;
     }
     footer {
       text-align: center;
       padding: 2rem;
-      color: #555;
+      color: #888;
       font-size: 0.9rem;
-      background: #0d0d0d;
+      background: #000;
     }
   </style>
 </head>
 <body>
   <div class="hero">
     <h1>EVOLVE</h1>
-    <p>A creative portfolio that fuses education, backend development, AI, and design — all in one interactive space.</p>
+    <p>A creative portfolio that visually and interactively showcases my tech & education journey.</p>
     <div class="orbital">
       <div class="dot"></div>
       <div class="dot"></div>
@@ -129,27 +155,27 @@
     </div>
   </div>
 
-  <section class="card-grid">
-    <div class="card">
-      <h2>🎓 Educator</h2>
-      <p>IBDP teacher guiding critical thinking, Theory of Knowledge, English A/B, and Extended Essays. Specialized in inquiry-based learning and global perspective development.</p>
+  <section class="icon-grid">
+    <div class="icon-card">
+      🎓
+      <div class="tooltip">IB Educator & TOK Expert – teaching & assessment</div>
     </div>
-    <div class="card">
-      <h2>💻 Backend Developer</h2>
-      <p>Experienced in Python, Django, RESTful APIs, SQL, and database architecture. Built secure, scalable systems and integrations using modern frameworks.</p>
+    <div class="icon-card">
+      💻
+      <div class="tooltip">Python & Django Developer – scalable backend systems</div>
     </div>
-    <div class="card">
-      <h2>🤖 Automation & AI</h2>
-      <p>Integrated RPA bots and AI assistants to optimize workflows, automate processes, and deliver real-time insights using custom APIs and hybrid SDLC cycles.</p>
+    <div class="icon-card">
+      🤖
+      <div class="tooltip">RPA & AI – automation, assistants, smart workflows</div>
     </div>
-    <div class="card">
-      <h2>🧠 Strategic Project Manager</h2>
-      <p>Led full-cycle IT projects, collaborating across teams with Agile/Scrum, using tools like JIRA, Notion, and Linear to deliver measurable results.</p>
+    <div class="icon-card">
+      📊
+      <div class="tooltip">Project Manager – Agile, Jira, stakeholder strategy</div>
     </div>
   </section>
 
   <footer>
-    &copy; 2025 Alex Kirkosyan – Crafted with code, driven by creativity.
+    &copy; 2025 Alex Kirkosyan – Designed with vision. Built with code.
   </footer>
 </body>
 </html>
