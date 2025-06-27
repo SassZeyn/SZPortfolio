@@ -16,85 +16,41 @@
       background: #000;
       color: #fff;
       font-family: 'Outfit', sans-serif;
-      overflow-x: hidden;
+      overflow: hidden;
     }
     .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
       text-align: center;
-      padding: 2rem;
-      background: #000;
-      position: relative;
+      z-index: 1;
     }
     .hero h1 {
       font-size: 4rem;
-      color: #fff;
       margin-bottom: 1rem;
-      letter-spacing: 2px;
     }
     .hero p {
-      font-size: 1.2rem;
       max-width: 600px;
-      line-height: 1.6;
+      font-size: 1.2rem;
       color: #bbb;
     }
-    .orbital {
+    .icon-orbit {
       position: absolute;
       width: 100%;
       height: 100%;
       top: 0;
       left: 0;
       pointer-events: none;
-      z-index: 1;
+      z-index: 0;
     }
-    .dot {
+    .orbit-icon {
       position: absolute;
-      border-radius: 50%;
-      animation: orbit 10s linear infinite;
-    }
-    .dot:nth-child(1) {
-      width: 16px;
-      height: 16px;
-      background: #fff;
-      top: 20%;
-      left: 50%;
-      animation-delay: 0s;
-    }
-    .dot:nth-child(2) {
-      width: 12px;
-      height: 12px;
-      background: #ccc;
-      top: 70%;
-      left: 30%;
-      animation-delay: 2s;
-    }
-    .dot:nth-child(3) {
-      width: 14px;
-      height: 14px;
-      background: #999;
-      top: 40%;
-      left: 80%;
-      animation-delay: 4s;
-    }
-    @keyframes orbit {
-      0% { transform: translate(0, 0) rotate(0deg) translateX(100px) rotate(0deg); }
-      100% { transform: translate(0, 0) rotate(360deg) translateX(100px) rotate(-360deg); }
-    }
-    .icon-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 4rem;
-      padding: 4rem 2rem;
-      background: #111;
-    }
-    .icon-card {
-      position: relative;
-      width: 120px;
-      height: 120px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
       background: #000;
       border: 2px solid #fff;
@@ -102,45 +58,77 @@
       align-items: center;
       justify-content: center;
       font-size: 2rem;
-      animation: float 5s ease-in-out infinite;
-      transition: all 0.4s ease;
       cursor: pointer;
+      transition: transform 0.4s ease, background 0.4s ease;
     }
-    .icon-card:hover {
-      transform: scale(1.1);
+    .orbit-icon:hover {
       background: #fff;
       color: #000;
+      transform: scale(1.2);
+      z-index: 10;
     }
-    .icon-card:hover .tooltip {
-      opacity: 1;
-      transform: translateY(-140%);
-    }
-    @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0); }
-    }
-    .tooltip {
+    .orbit-icon .tooltip {
       position: absolute;
-      bottom: -20px;
+      bottom: -60px;
       background: #fff;
       color: #000;
-      padding: 0.8rem 1rem;
+      padding: 0.6rem 1rem;
       font-size: 0.85rem;
       border-radius: 8px;
       opacity: 0;
       pointer-events: none;
-      transform: translateY(-100%);
+      transform: translateY(-10px);
       transition: all 0.4s ease;
       text-align: center;
       width: 180px;
     }
+    .orbit-icon:hover .tooltip {
+      opacity: 1;
+      transform: translateY(-20px);
+    }
+    @keyframes rotate1 {
+      from { transform: rotate(0deg) translateX(150px) rotate(0deg); }
+      to { transform: rotate(360deg) translateX(150px) rotate(-360deg); }
+    }
+    @keyframes rotate2 {
+      from { transform: rotate(0deg) translateX(200px) rotate(0deg); }
+      to { transform: rotate(360deg) translateX(200px) rotate(-360deg); }
+    }
+    @keyframes rotate3 {
+      from { transform: rotate(0deg) translateX(250px) rotate(0deg); }
+      to { transform: rotate(360deg) translateX(250px) rotate(-360deg); }
+    }
+    .orbit-icon:nth-child(1) {
+      top: 50%;
+      left: 50%;
+      animation: rotate1 12s linear infinite;
+      transform-origin: center;
+    }
+    .orbit-icon:nth-child(2) {
+      top: 50%;
+      left: 50%;
+      animation: rotate2 16s linear infinite;
+      transform-origin: center;
+    }
+    .orbit-icon:nth-child(3) {
+      top: 50%;
+      left: 50%;
+      animation: rotate3 20s linear infinite;
+      transform-origin: center;
+    }
+    .orbit-icon:nth-child(4) {
+      top: 50%;
+      left: 50%;
+      animation: rotate2 18s linear infinite reverse;
+      transform-origin: center;
+    }
     footer {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
       text-align: center;
-      padding: 2rem;
       color: #888;
       font-size: 0.9rem;
-      background: #000;
     }
   </style>
 </head>
@@ -148,32 +136,21 @@
   <div class="hero">
     <h1>EVOLVE</h1>
     <p>A creative portfolio that visually and interactively showcases my tech & education journey.</p>
-    <div class="orbital">
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
+    <div class="icon-orbit">
+      <div class="orbit-icon">
+        🎓<div class="tooltip">IB Educator & TOK Expert</div>
+      </div>
+      <div class="orbit-icon">
+        💻<div class="tooltip">Python & Django Developer</div>
+      </div>
+      <div class="orbit-icon">
+        🤖<div class="tooltip">AI + RPA Automation</div>
+      </div>
+      <div class="orbit-icon">
+        📊<div class="tooltip">Agile Project Manager</div>
+      </div>
     </div>
   </div>
-
-  <section class="icon-grid">
-    <div class="icon-card">
-      🎓
-      <div class="tooltip">IB Educator & TOK Expert – teaching & assessment</div>
-    </div>
-    <div class="icon-card">
-      💻
-      <div class="tooltip">Python & Django Developer – scalable backend systems</div>
-    </div>
-    <div class="icon-card">
-      🤖
-      <div class="tooltip">RPA & AI – automation, assistants, smart workflows</div>
-    </div>
-    <div class="icon-card">
-      📊
-      <div class="tooltip">Project Manager – Agile, Jira, stakeholder strategy</div>
-    </div>
-  </section>
-
   <footer>
     &copy; 2025 Alex Kirkosyan – Designed with vision. Built with code.
   </footer>
