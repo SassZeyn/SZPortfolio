@@ -13,113 +13,92 @@
     html, body {
       height: 100%;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #111;
       overflow: hidden;
     }
-    .split {
+    .container {
+      width: 100%;
       height: 100%;
-      width: 50%;
-      position: fixed;
-      top: 0;
-      overflow: hidden;
-      transition: width 0.5s ease;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 2rem;
+      background: linear-gradient(120deg, #000, #1a1a1a);
+      position: relative;
     }
-    .left {
-      left: 0;
-      background-color: #ffffff;
-      color: #000;
-      z-index: 1;
+    .profile {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 6px solid #9b5de5;
+      box-shadow: 0 0 20px rgba(155, 93, 229, 0.6);
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
     }
-    .right {
-      right: 0;
-      background-color: #000000;
+    .profile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .info-box {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 300px;
+      padding: 1rem;
+      background-color: rgba(0, 0, 0, 0.8);
       color: #fff;
-      z-index: 1;
+      border-radius: 10px;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      opacity: 0;
     }
-    .left:hover {
-      width: 75%;
+    .info-left {
+      left: 5%;
+      text-align: left;
     }
-    .right:hover {
-      width: 75%;
+    .info-right {
+      right: 5%;
+      text-align: right;
     }
-    .left:hover ~ .right {
-      width: 25%;
+    .container:hover .info-box {
+      opacity: 0.3;
     }
-    .right:hover ~ .left {
-      width: 25%;
+    .container:hover .info-left:hover,
+    .container:hover .info-right:hover {
+      opacity: 1;
+      transform: translateY(-50%) scale(1.05);
     }
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
-    p {
-      max-width: 400px;
-      text-align: center;
-      font-size: 1.1rem;
-      line-height: 1.5;
-    }
-    a {
-      text-decoration: none;
+    .info-box h2 {
       color: #9b5de5;
-      margin-top: 1rem;
-      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    .container:hover .profile {
+      transform: scale(1.05);
+      box-shadow: 0 0 40px rgba(155, 93, 229, 0.8);
     }
     .signature {
       position: absolute;
       bottom: 20px;
-      font-size: 0.9rem;
-      color: #666;
       width: 100%;
       text-align: center;
-      z-index: 2;
-    }
-    .center-image {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 0;
-      pointer-events: none;
-      transition: filter 0.5s ease, transform 0.5s ease;
-    }
-    .center-image img {
-      width: 280px;
-      height: 280px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 4px solid #9b5de5;
-    }
-    .left:hover ~ .center-image img {
-      filter: hue-rotate(-40deg) contrast(1.1);
-      transform: translate(-50%, -50%) scale(1.05);
-    }
-    .right:hover ~ .center-image img {
-      filter: hue-rotate(120deg) contrast(1.1);
-      transform: translate(-50%, -50%) scale(1.05);
+      color: #999;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
-  <div class="split left">
-    <h1>Educator</h1>
-    <p>Guiding critical thinking, communication, and global understanding through the IB framework and modern pedagogy.</p>
-    <a href="#">Explore Teaching</a>
+  <div class="container">
+    <div class="info-box info-left">
+      <h2>Educator</h2>
+      <p>Empowering minds through critical thinking, TOK, global perspectives, and IBDP excellence.</p>
+    </div>
+    <div class="profile">
+      <img src="assets/alex.jpg" alt="Alex Profile">
+    </div>
+    <div class="info-box info-right">
+      <h2>Technologist</h2>
+      <p>Building scalable systems with Python, Django, and AI automation for impactful digital solutions.</p>
+    </div>
+    <div class="signature">&copy; 2025 Alex Kirkosyan | evolve</div>
   </div>
-
-  <div class="split right">
-    <h1>Technologist</h1>
-    <p>Engineering scalable systems with Python, Django, APIs, and RPA—bridging education and technology through logic and automation.</p>
-    <a href="#">Explore Projects</a>
-  </div>
-
-  <div class="center-image">
-    <img src="assets/alex.jpg" alt="Alex Photo">
-  </div>
-
-  <div class="signature">&copy; 2025 Alex Kirkosyan | evolve</div>
 </body>
 </html>
