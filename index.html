@@ -51,6 +51,44 @@
       color: #fff;
       max-width: 80%;
     }
+    #popup {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #222;
+      padding: 2rem;
+      border-radius: 10px;
+      border: 2px solid #9b5de5;
+      z-index: 20;
+      display: none;
+      color: white;
+      max-width: 400px;
+      text-align: center;
+    }
+    #popup h2 {
+      margin-top: 0;
+      color: #9b5de5;
+    }
+    #popup button {
+      background: transparent;
+      border: 1px solid #9b5de5;
+      color: #9b5de5;
+      padding: 0.5rem 1rem;
+      margin-top: 1rem;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 15;
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -60,6 +98,13 @@
   </div>
   <canvas id="bg"></canvas>
   <div id="info-box">Use your mouse or touch to look around. Click on the floating spheres to explore each role.</div>
+
+  <div id="overlay"></div>
+  <div id="popup">
+    <h2 id="popup-title"></h2>
+    <p id="popup-text"></p>
+    <button onclick="closePopup()">Close</button>
+  </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script>
@@ -84,6 +129,13 @@
       "IBDP Educator"
     ];
 
+    const descriptions = {
+      "IT Project Manager": "Managed end-to-end IT projects, coordinated cross-functional teams, and tracked KPIs using Agile methodologies.",
+      "Backend Developer": "Built secure, scalable systems using Django, RESTful APIs, JWT, and OAuth2.",
+      "RPA & AI Integration": "Led RPA bot projects and integrated AI assistants for data-driven process enhancement.",
+      "IBDP Educator": "Taught TOK and English, supervised Extended Essays, and contributed to academic policy development."
+    };
+
     labels.forEach((label, i) => {
       const sphere = new THREE.Mesh(geometry, materials[i % materials.length]);
       sphere.position.set(Math.cos(i * 1.5) * 5, Math.sin(i * 1.5) * 3, -5 - i);
@@ -104,9 +156,19 @@
       const intersects = raycaster.intersectObjects(spheres);
 
       if (intersects.length > 0) {
-        alert('Explore: ' + intersects[0].object.name);
+        const name = intersects[0].object.name;
+        document.getElementById('popup-title').innerText = name;
+        document.getElementById('popup-text').innerText = descriptions[name];
+        document.getElementById('popup').style.display = 'block';
+        document.getElementById('overlay').style.display = 'block';
       }
     }
+
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
+    }
+
     window.addEventListener('click', onMouseClick);
 
     function animate() {
