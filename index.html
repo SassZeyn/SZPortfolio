@@ -66,16 +66,23 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2rem;
       cursor: pointer;
       transition: transform 0.4s ease, background 0.4s ease;
       pointer-events: auto;
       text-align: center;
     }
 
+    .orbit-inner {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
     .orbit-icon img {
-      width: 80%;
-      height: 80%;
+      width: 80px;
+      height: 80px;
       object-fit: cover;
       border-radius: 50%;
     }
@@ -98,13 +105,14 @@
       font-size: 0.85rem;
       border-radius: 8px;
       opacity: 0;
-      pointer-events: none;
+      pointer-events: auto;
       transition: all 0.4s ease;
       white-space: nowrap;
       min-width: max-content;
     }
 
-    .orbit-icon:hover .tooltip {
+    .orbit-icon:hover .tooltip,
+    .orbit-icon.paused .tooltip {
       opacity: 1;
       transform: translateX(-50%) translateY(-20px);
     }
@@ -187,7 +195,11 @@
       .orbit-icon {
         width: 60px;
         height: 60px;
-        font-size: 1rem;
+      }
+
+      .orbit-icon img {
+        width: 48px;
+        height: 48px;
       }
 
       .tooltip {
@@ -224,8 +236,12 @@
       .orbit-icon {
         width: 50px;
         height: 50px;
-        font-size: 0.9rem;
         animation: none !important;
+      }
+
+      .orbit-icon img {
+        width: 40px;
+        height: 40px;
       }
 
       .tooltip {
@@ -240,35 +256,44 @@
     <p>A creative portfolio that visually and interactively showcases my tech & education journey.</p>
     <div class="icon-orbit">
       <div class="orbit-icon">
-        <img src="assets/ib.jpg" alt="IB">
-        <div class="tooltip">
-          <strong>TOK Coordinator</strong><br>
-          <a href="https://docs.google.com/document/d/1piLlqBUB_2e2scokqfHGoJBsvJ2r3ywZ/edit?usp=share_link&ouid=111588679767332971122&rtpof=true&sd=true"
-             target="_blank">Check My Work</a>
+        <div class="orbit-inner">
+          <img src="assets/ib.jpg" alt="IB">
+          <div class="tooltip">
+            <strong>TOK Coordinator</strong><br>
+            <a href="https://docs.google.com/document/d/1piLlqBUB_2e2scokqfHGoJBsvJ2r3ywZ/edit?usp=share_link" target="_blank">
+              Check My Work
+            </a>
+          </div>
         </div>
       </div>
 
       <div class="orbit-icon">
-        <img src="assets/py.jpg" alt="Python">
-        <div class="tooltip">
-          <strong>Python Developer</strong><br>
-          <a href="https://example.com" target="_blank">GitHub Repo</a>
+        <div class="orbit-inner">
+          <img src="assets/py.jpg" alt="Python">
+          <div class="tooltip">
+            <strong>Python Developer</strong><br>
+            <a href="https://example.com" target="_blank">GitHub Repo</a>
+          </div>
         </div>
       </div>
 
       <div class="orbit-icon">
-        <img src="assets/mg.jpg" alt="AI">
-        <div class="tooltip">
-          <strong>AI + RPA</strong><br>
-          <a href="https://example.com" target="_blank">Project Page</a>
+        <div class="orbit-inner">
+          <img src="assets/mg.jpg" alt="AI">
+          <div class="tooltip">
+            <strong>AI + RPA</strong><br>
+            <a href="https://example.com" target="_blank">Project Page</a>
+          </div>
         </div>
       </div>
 
       <div class="orbit-icon">
-        <img src="assets/fun.png" alt="Creative">
-        <div class="tooltip">
-          <strong>Creative Mind</strong><br>
-          <a href="https://example.com" target="_blank">About Me</a>
+        <div class="orbit-inner">
+          <img src="assets/fun.png" alt="Creative">
+          <div class="tooltip">
+            <strong>Creative Mind</strong><br>
+            <a href="https://example.com" target="_blank">About Me</a>
+          </div>
         </div>
       </div>
     </div>
@@ -280,17 +305,11 @@
 
   <script>
     document.querySelectorAll('.orbit-icon').forEach(icon => {
-      const tooltip = icon.querySelector('.tooltip');
-
-      icon.addEventListener('mouseenter', () => {
-        tooltip.style.opacity = '1';
-        tooltip.style.transform = 'translateX(-50%) translateY(-20px)';
+      icon.addEventListener('mouseover', () => {
         icon.classList.add('paused');
       });
 
-      icon.addEventListener('mouseleave', () => {
-        tooltip.style.opacity = '0';
-        tooltip.style.transform = 'translateX(-50%) translateY(-10px)';
+      icon.addEventListener('mouseout', () => {
         icon.classList.remove('paused');
       });
     });
