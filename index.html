@@ -70,7 +70,7 @@
       cursor: pointer;
       transition: transform 0.4s ease, background 0.4s ease;
       pointer-events: auto;
-      overflow: visible;
+      text-align: center;
     }
 
     .orbit-icon img {
@@ -87,9 +87,9 @@
       z-index: 10;
     }
 
-    .orbit-icon .tooltip {
+    .tooltip {
       position: absolute;
-      top: -55px;
+      top: -80px;
       left: 50%;
       transform: translateX(-50%) translateY(-10px);
       background: #fff;
@@ -101,12 +101,20 @@
       pointer-events: none;
       transition: all 0.4s ease;
       white-space: nowrap;
-      text-align: center;
+      min-width: max-content;
     }
 
     .orbit-icon:hover .tooltip {
       opacity: 1;
       transform: translateX(-50%) translateY(-20px);
+    }
+
+    .tooltip a {
+      display: block;
+      margin-top: 4px;
+      font-size: 0.75rem;
+      color: #000;
+      text-decoration: underline;
     }
 
     @keyframes rotate1 {
@@ -166,7 +174,6 @@
       margin-top: 2rem;
     }
 
-    /* Mobile Styles */
     @media (max-width: 768px) {
       .hero h1 {
         font-size: 2.5rem;
@@ -183,20 +190,46 @@
         font-size: 1rem;
       }
 
-      .orbit-icon .tooltip {
-        top: -40px;
-        font-size: 0.7rem;
+      .tooltip {
+        font-size: 0.75rem;
+        top: -60px;
         padding: 0.4rem 0.8rem;
       }
 
       .icon-orbit {
-        transform: scale(0.7);
+        transform: scale(0.6);
+      }
+
+      @keyframes rotate1 {
+        from { transform: rotate(0deg) translateX(100px) rotate(0deg); }
+        to { transform: rotate(360deg) translateX(100px) rotate(-360deg); }
+      }
+
+      @keyframes rotate2 {
+        from { transform: rotate(0deg) translateX(130px) rotate(0deg); }
+        to { transform: rotate(360deg) translateX(130px) rotate(-360deg); }
+      }
+
+      @keyframes rotate3 {
+        from { transform: rotate(0deg) translateX(160px) rotate(0deg); }
+        to { transform: rotate(360deg) translateX(160px) rotate(-360deg); }
       }
     }
 
     @media (max-width: 480px) {
+      .icon-orbit {
+        transform: scale(0.45);
+      }
+
       .orbit-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 0.9rem;
         animation: none !important;
+      }
+
+      .tooltip {
+        display: none;
       }
     }
   </style>
@@ -208,23 +241,35 @@
     <div class="icon-orbit">
       <div class="orbit-icon">
         <img src="assets/ib.jpg" alt="IB">
-        <div class="tooltip">IB Educator & TOK Expert</div>
-        <strong>TOK Coordinator</strong><br>
-        <a href="https://docs.google.com/document/d/1piLlqBUB_2e2scokqfHGoJBsvJ2r3ywZ/edit?usp=share_link&ouid=111588679767332971122&rtpof=true&sd=true" target="_blank" style="color: #000; text-decoration: underline; font-size: 0.75rem;">
-      check My Work
-        </a>
+        <div class="tooltip">
+          <strong>TOK Coordinator</strong><br>
+          <a href="https://docs.google.com/document/d/1piLlqBUB_2e2scokqfHGoJBsvJ2r3ywZ/edit?usp=share_link&ouid=111588679767332971122&rtpof=true&sd=true"
+             target="_blank">Check My Work</a>
+        </div>
       </div>
+
       <div class="orbit-icon">
         <img src="assets/py.jpg" alt="Python">
-        <div class="tooltip">Python & Django Developer</div>
+        <div class="tooltip">
+          <strong>Python Developer</strong><br>
+          <a href="https://example.com" target="_blank">GitHub Repo</a>
+        </div>
       </div>
+
       <div class="orbit-icon">
         <img src="assets/mg.jpg" alt="AI">
-        <div class="tooltip">AI + RPA Automation</div>
+        <div class="tooltip">
+          <strong>AI + RPA</strong><br>
+          <a href="https://example.com" target="_blank">Project Page</a>
+        </div>
       </div>
+
       <div class="orbit-icon">
         <img src="assets/fun.png" alt="Creative">
-        <div class="tooltip">That's me – Creative Educator & Tech Enthusiast</div>
+        <div class="tooltip">
+          <strong>Creative Mind</strong><br>
+          <a href="https://example.com" target="_blank">About Me</a>
+        </div>
       </div>
     </div>
   </div>
